@@ -164,8 +164,7 @@ if(!isset($_SESSION["kode_user"]))
                                         <img src="../assets/images/faces/1.jpg" alt="Face 1">
                                     </div>
                                     <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
+                                        <h5 class="font-bold"><?php echo $_SESSION["nama"] ?></h5>
                                     </div>
                                 </div>
                             </div>

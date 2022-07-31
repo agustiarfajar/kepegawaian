@@ -23,7 +23,25 @@
                     </div>
                     <h1 class="auth-title">Log in SIMPEG</h1>
                     <p class="auth-subtitle mb-5">Silahkan login terlebih dahulu.</p>
-
+                    <?php 
+                    include_once("pages/functions.php");
+                    $db = dbConnect();
+                    session_start();
+                    if(isset($_GET["error"]))
+                    {
+                        $error = $_GET["error"];
+                        if($error == "1")
+                            showError("Username atau Password salah.");
+                        else if($error == "2")
+                            showError("Terjadi Kesalahan: ".(DEVELOPMENT?":".$db->error:""));
+                        else if($error == "input")
+                            showError("Kesalahan masukan:<br>".$_SESSION["salahinputuser"]);   
+                        else if($error == "koneksi")
+                            showError("Koneksi Bermasalah");  
+                        else if($error == "proses")
+                            showError("Terjadi Kesalahan. Wajib Menekan Tombol Login"); 
+                    }
+                    ?>
                     <form action="do-login.php" method="post">
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Username" name="username" autocomplete="off">
@@ -61,6 +79,9 @@
         </div>
 
     </div>
+<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 
 </html>

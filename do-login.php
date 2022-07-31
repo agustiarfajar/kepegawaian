@@ -13,11 +13,11 @@ if(isset($_POST["btnLogin"]))
 
         if(strlen($v_user) == 0)
         {
-            $pesansalah .= "Username tidak boleh kosong.";
+            $pesansalah .= "Username tidak boleh kosong<br>";
         }
         if(strlen($v_pass) == 0)
         {
-            $pesansalah .= "Password tidak boleh kosong.";
+            $pesansalah .= "Password tidak boleh kosong<br>";
         }
 
         if($pesansalah == "")
@@ -46,7 +46,11 @@ if(isset($_POST["btnLogin"]))
                 header("Location: index.php?error=2");
         }
         else 
+        {
+            session_start();
+            $_SESSION["salahinputuser"] = $pesansalah;
             header("Location: index.php?error=input");
+        }
         
     }
     else 
