@@ -126,6 +126,7 @@ $hasil = getFKDataLembur();
                                                         class="btn btn-primary me-1 mb-1" name="submit">Submit</button>
                                                     <button type="reset"
                                                         class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal" class="d-none d-sm-block">Batal</button>
                                                 </div>
                                             </div>
                                         </form>
