@@ -193,4 +193,132 @@ function getDataKaryawan($kodkar)
         return FALSE;
 }
 // END OF KARYAWAN BLOCK
+
+// BLOCK OF LEMBUR
+function getFKDataLembur(){
+    $db = dbConnect();
+    $sql = "SELECT l.kode_lembur, k.kode_karyawan, 
+                    l.tanggal, l.keterangan,
+                    u.kode_user
+            FROM lembur l 
+			JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
+			JOIN user u ON l.kode_user = u.kode_user";  
+
+    $result = $db->query($sql);
+    $row = $result->fetch_All();
+
+    $db->close();
+    return $row;
+}
+
+function getListKaryawan(){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$res=$db->query("SELECT * 
+						 FROM karyawan
+						 ORDER BY kode_karyawan");
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
+function getListUser(){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$res=$db->query("SELECT * 
+						 FROM user
+						 ORDER BY kode_user");
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
+function getDataLembur($kode_lembur)
+{
+    $db = dbConnect();
+    if($db->connect_errno==0)
+    {
+        $sql = "SELECT * FROM lembur WHERE kode_lembur = '$kode_lembur'";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $res->free();
+                return $data;
+            }
+            else
+                return FALSE;
+        }
+        else
+            return FALSE;
+    }
+    else
+        return FALSE;
+}
+
+function getList($table, $id){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$res=$db->query("SELECT * 
+						 FROM $table
+						 ORDER BY $id");
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
+function getListWhereId($table, $id, $field, $idField){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$res=$db->query("SELECT $field 
+						 FROM $table
+						 WHERE $idField= $id");
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
+// function get data tapi yang di fetch_assoc
+function getDataAssoc($table, $id, $field){
+    $db = dbConnect();
+    $sql = "SELECT * FROM $table WHERE $field =$id";
+    $result = $db->query($sql);
+    $row = $result->fetch_All(MYSQLI_ASSOC);
+
+    $db->close();
+    return $row;
+}
+
+// END OF KARYAWAN BLOCK
+
 ?>
