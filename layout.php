@@ -93,7 +93,7 @@ function sidebar()
                             </li>
 
                             <li class="sidebar-item">
-                                <a href="#" class='sidebar-link'>
+                                <a href="lembur.php" class='sidebar-link'>
                                     <i class="bi bi-clock-fill"></i>
                                     <span>Lembur</span>
                                 </a>
