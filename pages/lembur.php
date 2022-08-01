@@ -1,11 +1,14 @@
-<?php 
-include_once("../layout.php");
-///session_start();
-
-if(!isset($_SESSION["kode_user"]))
-{
-    header("Location: ../index.php?error=akses");
-} else
+<?php
+    
+    include_once("functions.php");
+    include_once("../layout.php");
+    session_start();
+    if(!isset($_SESSION["kode_user"]))
+    {
+        header("Location: ../index.php?error=4");
+    }
+    style_section();
+    sidebar();
 ?>
 <?php
 include_once 'functions.php';
@@ -32,7 +35,6 @@ $hasil = getFKDataLembur();
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Data Lembur</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -192,10 +194,10 @@ $hasil = getFKDataLembur();
                                 <td><?= $value[3] ?></td>
                                 <td><?= $value[4] ?></td>
                                 <td>
-                                <a href="editDataLembur.php?kode_lembur= <?php echo $value[0] ?> ">Edit Data</a> 
-                                <a href="hapusDataLembur.php?kode_lembur= <?php echo $value[0] ?> ">Hapus Data</a>
-                    </td>
-                </tr>
+                                <a href="editDataLembur.php?kode_lembur= ".$row['kode_lembur']."' class='btn btn-primary btn-sm'><i class='bi bi-pencil-square'></i></a>&nbsp;
+                                <a href="hapusDataLembur.php?kode_lembur= ".$row['kode_lembur']."' class='btn btn-danger btn-sm'><i class='bi bi-trash-fill'></i></a>
+                                </td>
+                                </tr>
                 <?php endforeach; ?>   
                                 </tbody>
                             </table>
