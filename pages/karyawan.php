@@ -162,19 +162,19 @@
                 </div>
                 <div class="card-body">
                 <table class="table table-striped" id="table1">
-                    <thead class="text-center">
+                    <thead>
                         <tr>
                             <th data-sortable="">
-                                <a href="#" class="dataTable-sorter">Kode Karyawan</a>
+                                <a href="#" class="dataTable-sorter"><span style="width:110px;display:inline-block">Kode Karyawan</span></a>
                             </th>
                             <th data-sortable="">
-                                <a href="#" class="dataTable-sorter">NIK</a>
+                                <a href="#" class="dataTable-sorter"><span style="width:100px;display:inline-block">NIK</span></a>
                             </th>
                             <th data-sortable="">
                                 <a href="#" class="dataTable-sorter"><span style="width:200px;display:inline-block">Nama</span></a>
                             </th>
                             <th data-sortable="">
-                                <a href="#" class="dataTable-sorter">Kode Bagian</a>
+                                <a href="#" class="dataTable-sorter"><span style="width:80px;display:inline-block">Kode Bagian</span></a>
                             </th>
                             <th data-sortable="">
                                 <a href="#" class="dataTable-sorter"><span style="width:50px;display:inline-block">JK</span></a>
@@ -183,7 +183,7 @@
                                 <a href="#" class="dataTable-sorter"><span style="width:200px;display:inline-block">Alamat</span></a>
                             </th>
                             <th data-sortable="">
-                                <a href="#" class="dataTable-sorter">Telp</a>
+                                <a href="#" class="dataTable-sorter">No. Telp</a>
                             </th>
                             <th data-sortable="">
                                 <a href="#" class="dataTable-sorter"><span style="width:100px;display:inline-block">Tgl Lahir</span></a>
@@ -213,17 +213,17 @@
                             foreach($data as $row)
                             {
                                 echo "<tr>
-                                    <td class='text-center'>".$row['kode_karyawan']."</td>
-                                    <td class='text-center'>".$row['nik']."</td>
+                                    <td>".$row['kode_karyawan']."</td>
+                                    <td>".$row['nik']."</td>
                                     <td>".$row['nama']."</td>
-                                    <td class='text-center'>".$row['kode_bagian']."</td>
-                                    <td class='text-center'>".$row['jk']."</td>
+                                    <td>".$row['kode_bagian']."</td>
+                                    <td>".$row['jk']."</td>
                                     <td>".$row['alamat']."</td>
                                     <td>".$row['no_telp']."</td>
-                                    <td class='text-center'>".$row['tanggal_lahir']."</td>
-                                    <td class='text-center'>".$row['status_kawin']."</td>
-                                    <td class='text-center'>".$row['tanggal_masuk']."</td>
-                                    <td class='text-center'>
+                                    <td>".$row['tanggal_lahir']."</td>
+                                    <td>".$row['status_kawin']."</td>
+                                    <td>".$row['tanggal_masuk']."</td>
+                                    <td>
                                         <a href='karyawan-form-edit.php?kode_karyawan=".$row['kode_karyawan']."' class='btn btn-primary btn-sm'><i class='bi bi-pencil-square'></i></a>&nbsp;
                                         <a href='karyawan-form-hapus.php?kode_karyawan=".$row['kode_karyawan']."' class='btn btn-danger btn-sm'><i class='bi bi-trash-fill'></i></a>
                                     </td>
