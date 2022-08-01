@@ -131,7 +131,6 @@ $hasil = getFKDataLembur();
                                         </form>
                                         <?php
             $conn = dbConnect();
-            // check if button submit is clicked and check if kode_pinjam duplicate
             if(isset($_POST["submit"])){
                 $kode_lembur = $_POST["kode_lembur"];
                 $kode_karyawan = $_POST["kode_karyawan"];
@@ -143,7 +142,7 @@ $hasil = getFKDataLembur();
                 if($result){
                     header("Location: lembur.php?success=1");
                 }else{
-                    echo "Data gagal ditambahkan";
+                    header("Location: lembur.php?warning=penginputan");
                 }
             }
         ?>
