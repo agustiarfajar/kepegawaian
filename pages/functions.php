@@ -229,6 +229,31 @@ function getListKaryawan(){
 		return FALSE;
 }
 
+function getDataLembur($kode_lembur)
+{
+    $db = dbConnect();
+    if($db->connect_errno==0)
+    {
+        $sql = "SELECT * FROM lembur WHERE kode_lembur = '$kode_lembur'";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $res->free();
+                return $data;
+            }
+            else
+                return FALSE;
+        }
+        else
+            return FALSE;
+    }
+    else
+        return FALSE;
+}
+
 function getList($table, $id){
 	$db=dbConnect();
 	if($db->connect_errno==0){
@@ -275,4 +300,7 @@ function getDataAssoc($table, $id, $field){
     $db->close();
     return $row;
 }
+
+// END OF KARYAWAN BLOCK
+
 ?>

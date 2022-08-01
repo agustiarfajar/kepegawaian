@@ -40,7 +40,7 @@ $hasil = getFKDataLembur();
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">DataTable</li>
+                                    <li class="breadcrumb-item"><a href="lembur.php">Lembur</a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -116,17 +116,10 @@ $hasil = getFKDataLembur();
                                                     <div class="form-group">
                                                         <label for="kode_user">Kode User</label>
                                                         <input type="text" id="kode_user" class="form-control"
-                                                            name="kode_user" placeholder="Kode_User">
+                                                            name="kode_user" placeholder="Kode User">
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-12">
-                                                    <div class='form-check'>
-                                                        <div class="checkbox">
-                                                            <input type="checkbox" id="checkbox5"
-                                                                class='form-check-input' checked>
-                                                            <label for="checkbox5">Remember Me</label>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="col-12 d-flex justify-content-end">
                                                     <button type="submit"
@@ -175,7 +168,6 @@ $hasil = getFKDataLembur();
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
                                         <th>Kode Lembur</th>
                                         <th>Kode Karyawan</th>
                                         <th>Tanggal</th>
@@ -185,20 +177,33 @@ $hasil = getFKDataLembur();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($hasil as $key => $value) : ?>
-                                <tr>
-                                <th scope="row"><?= $key + 1 ?></th>
-                                <td><?= $value[0] ?></td>
-                                <td><?= $value[1] ?></td>
-                                <td><?= $value[2] ?></td>
-                                <td><?= $value[3] ?></td>
-                                <td><?= $value[4] ?></td>
-                                <td>
-                                <a href="editDataLembur.php?kode_lembur= ".$row['kode_lembur']."' class='btn btn-primary btn-sm'><i class='bi bi-pencil-square'></i></a>&nbsp;
-                                <a href="hapusDataLembur.php?kode_lembur= ".$row['kode_lembur']."' class='btn btn-danger btn-sm'><i class='bi bi-trash-fill'></i></a>
-                                </td>
-                                </tr>
-                <?php endforeach; ?>   
+                                <?php 
+                    $db = dbConnect();
+                    $no = 0;
+                    if($db->connect_errno==0)
+                    {
+                        $sql = "SELECT * FROM lembur";
+                        $res = $db->query($sql);
+                        if($res)
+                        {
+                            $data = $res->fetch_all(MYSQLI_ASSOC);
+                            foreach($data as $row)
+                            {
+                                echo "<tr>
+                                    <td>".$row['kode_lembur']."</td>
+                                    <td>".$row['kode_karyawan']."</td>
+                                    <td>".$row['tanggal']."</td>
+                                    <td>".$row['keterangan']."</td>
+                                    <td>".$row['kode_user']."</td>
+                                    <td>
+                                        <a href='lembur-form-edit.php?kode_lembur=".$row['kode_lembur']."' class='btn btn-primary btn-sm'><i class='bi bi-pencil-square'></i></a>&nbsp;
+                                        <a href='lembur-form-hapus.php?kode_lembur=".$row['kode_lembur']."' class='btn btn-danger btn-sm'><i class='bi bi-trash-fill'></i></a>
+                                    </td>
+                                    </tr>";
+                            } $res->free();
+                        }
+                    }
+                    ?>
                                 </tbody>
                             </table>
                         </div>
