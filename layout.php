@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 
 function style_section()
 {
@@ -17,7 +17,7 @@ function style_section()
         <link rel="stylesheet" href="../assets/css/bootstrap.css">
 
         <link rel="stylesheet" href="../assets/vendors/iconly/bold.css">
-
+        <link rel="stylesheet" href="../assets/vendors/simple-datatables/style.css"> <!-- DATA TABLES -->
         <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
         <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
         <link rel="stylesheet" href="../assets/css/app.css">
@@ -54,7 +54,7 @@ function sidebar()
                             <li class="sidebar-title">Master Data</li>
 
                             <li class="sidebar-item">
-                                <a href="index.html" class='sidebar-link'>
+                                <a href="dashboard.php" class='sidebar-link'>
                                     <i class="bi bi-grid-fill"></i>
                                     <span>Dashboard</span>
                                 </a>
@@ -68,7 +68,7 @@ function sidebar()
                             </li>
 
                             <li class="sidebar-item">
-                                <a href="#" class='sidebar-link'>
+                                <a href="karyawan.php" class='sidebar-link'>
                                     <i class="bi bi-people-fill"></i>
                                     <span>Karyawan</span>
                                 </a>
@@ -136,9 +136,9 @@ function script_section()
     ?>
     <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="../assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="../assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="../assets/js/pages/dashboard.js"></script>
-
     <script src="../assets/js/main.js"></script>
 </body>
 
