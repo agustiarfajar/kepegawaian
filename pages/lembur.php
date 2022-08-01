@@ -57,8 +57,6 @@ $hasil = getFKDataLembur();
                                                     role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel16">Extra Large
-                                                                Modal</h4>
                                                             <button type="button" class="close" data-bs-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <i data-feather="x"></i>
@@ -114,9 +112,17 @@ $hasil = getFKDataLembur();
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label for="kode_user">Kode User</label>
-                                                        <input type="text" id="kode_user" class="form-control"
-                                                            name="kode_user" placeholder="Kode User">
+                                                        <label>Kode User</label>
+                                                        
+                                                        <select name="kode_user" class="form-control" >
+                                                            <?php
+                                                               $datakode_user=getList("user", "kode_user");
+                                                                foreach($datakode_user as $data){
+                                                                echo "<option value=\"".$data["kode_user"]."\">".$data["kode_user"]."</option>";
+                                                                 }
+                                                             ?>
+                                                    </select>
+
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-12">

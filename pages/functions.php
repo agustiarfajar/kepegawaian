@@ -229,6 +229,24 @@ function getListKaryawan(){
 		return FALSE;
 }
 
+function getListUser(){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		$res=$db->query("SELECT * 
+						 FROM user
+						 ORDER BY kode_user");
+		if($res){
+			$data=$res->fetch_all(MYSQLI_ASSOC);
+			$res->free();
+			return $data;
+		}
+		else
+			return FALSE; 
+	}
+	else
+		return FALSE;
+}
+
 function getDataLembur($kode_lembur)
 {
     $db = dbConnect();
