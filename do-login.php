@@ -31,12 +31,14 @@ if(isset($_POST["btnLogin"]))
                 if($res->num_rows==1)
                 {
                     $data=$res->fetch_assoc();
+                    session_id("basdat2");
                     session_start();
                     $_SESSION["kode_user"]=$data["kode_user"];
                     $_SESSION["nama"]=$data["nama"];
                     $_SESSION["no_telp"]=$data["no_telp"];
                     $_SESSION["level"]=$data["level"];
                     $_SESSION["username"]=$data["username"];
+                    // var_dump($_SESSION);
                     header("Location: pages/dashboard.php");
                 }
                 else 

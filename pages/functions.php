@@ -6,6 +6,30 @@ function dbConnect()
     return $db;
 }
 
+function tgl_indo($tanggal){
+	$bulan = array (
+		1 =>   'Januari',
+		'Februari',
+		'Maret',
+		'April',
+		'Mei',
+		'Juni',
+		'Juli',
+		'Agustus',
+		'September',
+		'Oktober',
+		'November',
+		'Desember'
+	);
+	$pecahkan = explode('-', $tanggal);
+	
+	// variabel pecahkan 0 = tanggal
+	// variabel pecahkan 1 = bulan
+	// variabel pecahkan 2 = tahun
+ 
+	return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+}
+
 function showError($msg)
 {
     ?>
@@ -22,7 +46,7 @@ function showSuccess($msg)
 {
     ?>
     <div class="alert alert-light-success color-success alert-dismissible show fade">
-        <i class="bi bi-check-circle"></i>&ensp;
+        <i class="bi bi-check-circle"></i>
         <?php echo $msg ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert"
             aria-label="Close"></button>
@@ -33,8 +57,8 @@ function showSuccess($msg)
 function showWarning($msg)
 {
     ?>
-    <div class="alert alert-light-warning color-warning alert-dismissible show fade">
-        <i class="bi bi-exclamation-circle"></i>&ensp;
+    <div class="alert alert-light-warning color-success alert-dismissible show fade">
+        <i class="bi bi-exclamation-circle"></i>
         <?php echo $msg ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert"
             aria-label="Close"></button>
@@ -42,6 +66,62 @@ function showWarning($msg)
     <?php
 }
 
+// BLOCK PENGGAJIAN
+function noSlipOtomatis()
+{
+    $db = dbConnect();
+    if($db->connect_errno==0)
+    {
+        $sql = "SELECT MAX(no_slip) as kodeTerbesar FROM penggajian";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $no_slip = $data["kodeTerbesar"];
+                $urutan = (int) substr($no_slip, 4, 4);
+                $urutan++;
+                
+                $huruf = "INV/";
+                $no_slip = $huruf.sprintf("%04s", $urutan);
+            }
+            else 
+                $no_slip = "INV/0001";
+
+        }
+        return $no_slip;
+    }
+    else
+        return FALSE;
+}
+
+function getDataGaji($id)
+{
+    $db = dbConnect();
+    if($db->connect_errno==0)
+    {
+        $sql = "SELECT * FROM penggajian WHERE no_slip='$id'";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows==1)
+            {
+                $data = $res->fetch_assoc();
+                return $data;
+            }
+            else
+                return FALSE;
+            $res->free();
+        }
+        else 
+            return FALSE;
+    }
+        return FALSE;
+}
+// END OF PENGGAJIAN BLOCK
+
+// BLOCK OF KARYAWAN
 function getListBagian() {
     $db=dbConnect();
     if($db->connect_errno==0){
@@ -112,4 +192,5 @@ function getDataKaryawan($kodkar)
     else
         return FALSE;
 }
+// END OF KARYAWAN BLOCK
 ?>

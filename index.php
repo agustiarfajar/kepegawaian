@@ -40,6 +40,8 @@
                             showError("Koneksi Bermasalah");  
                         else if($error == "proses")
                             showError("Terjadi Kesalahan. Wajib Menekan Tombol Login"); 
+                        else if($error == "akses")
+                            showError("Akses dilarang, silahkan login terlebih dahulu.");
                     }
                     ?>
                     <form action="do-login.php" method="post">
