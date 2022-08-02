@@ -102,7 +102,7 @@ if(!isset($_SESSION["kode_user"]))
                     <div class="col-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile Visit</h4>
+                                <h4 align="center">Jumlah Karyawan Baru Masuk<br><small><?php echo date('Y'); ?></small></h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart-profile-visit"></div>
@@ -135,9 +135,33 @@ if(!isset($_SESSION["kode_user"]))
                         href="http://ahmadsaugi.com">A. Saugi</a></p>
             </div>
         </div>
-        <?php 
-            $masuk = countKaryawanMasuk();
-            print_r($masuk);
+        <?php
+            $tahun = date('Y');
+            $jan = countKaryawanMasuk("01", $tahun);
+            $feb = countKaryawanMasuk("02", $tahun);
+            $mar = countKaryawanMasuk("03", $tahun);
+            $apr = countKaryawanMasuk("04", $tahun);
+            $mei = countKaryawanMasuk("05", $tahun);
+            $jun = countKaryawanMasuk("06", $tahun); 
+            $jul = countKaryawanMasuk("07", $tahun);
+            $ags = countKaryawanMasuk("08", $tahun);
+            $spt = countKaryawanMasuk("09", $tahun);
+            $okt = countKaryawanMasuk("10", $tahun);
+            $nov = countKaryawanMasuk("11", $tahun);
+            $des = countKaryawanMasuk("12", $tahun);
+
+            $data_jan = $jan["masuk"];
+            $data_feb = $feb["masuk"];
+            $data_mar = $mar["masuk"];
+            $data_apr = $apr["masuk"];
+            $data_mei = $mei["masuk"];
+            $data_jun = $jun["masuk"];
+            $data_jul = $jul["masuk"];
+            $data_ags = $ags["masuk"];
+            $data_spt = $spt["masuk"];
+            $data_okt = $okt["masuk"];
+            $data_nov = $nov["masuk"];
+            $data_des = $des["masuk"];
         ?>
     </footer>
 </div>
@@ -187,13 +211,33 @@ var karyawan = {
 	plotOptions: {
 	},
 	series: [{
-		name: 'sales',
-		data: [9,20,30,20,10,20,30,20,10,20,30,20]
+		name: 'Karyawan Baru',
+		data: [<?php echo $data_jan ?>,
+               <?php echo $data_feb ?>,
+               <?php echo $data_mar ?>,
+               <?php echo $data_apr ?>,
+               <?php echo $data_mei ?>,
+               <?php echo $data_jun ?>,
+               <?php echo $data_jul ?>,
+               <?php echo $data_ags ?>,
+               <?php echo $data_spt ?>,
+               <?php echo $data_okt ?>,
+               <?php echo $data_nov ?>,
+               <?php echo $data_des ?>,]
 	}],
 	colors: '#435ebe',
 	xaxis: {
-		categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul", "Aug","Sep","Oct","Nov","Dec"],
+		categories: ["Jan","Feb","Mar","Apr","Mei","Jun","Jul", "Aug","Sep","Oct","Nov","Dec"],
 	},
+    yaxis: [
+    {
+        labels: {
+        formatter: function(val) {
+            return val.toFixed(0);
+        }
+        }
+    }
+    ]
 }
 var chartJK = new ApexCharts(document.getElementById('chart-visitors-profile'), jk)
 var chartKaryawan = new ApexCharts(document.querySelector("#chart-profile-visit"), karyawan);

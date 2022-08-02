@@ -178,31 +178,16 @@ function countKaryawanP()
     else
         return FALSE;
 }
-function countKaryawanMasuk()
+function countKaryawanMasuk($bulan, $tahun)
 {
-    $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-    $tahun = date('Y');
     $db = dbConnect();
-    for($i=1;$i<count($bulan);$i++)
+    $sql = "SELECT COUNT(*) as masuk FROM karyawan WHERE YEAR(tanggal_masuk)='$tahun' AND MONTH(tanggal_masuk)='$bulan'";
+    $res = $db->query($sql);
+    if($res)
     {
-        if($db->connect_errno == 0)
-        {
-            $res = $db->query("SELECT COUNT(*) as jml_masuk FROM karyawan WHERE YEAR(tanggal_masuk)='$tahun'");
-            if($res)
-            {
-                $data = $res->fetch_all(MYSQLI_ASSOC);
-                foreach($data as $row)
-                {
-                    $jumlahKaryawanMasuk = $row->jml_masuk;
-                    return $jumlahKaryawanMasuk;
-                }
-                $res->free();                
-            }
-            else
-                return FALSE;   
-        }
-        else
-            return FALSE;
+        $data = $res->fetch_assoc();
+        return $data;
+        $res->free();
     }
 }
 
