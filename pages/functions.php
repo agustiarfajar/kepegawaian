@@ -66,62 +66,6 @@ function showWarning($msg)
     <?php
 }
 
-// BLOCK USER
-function kodeUserOtomatis()
-{
-    $db = dbConnect();
-    if($db->connect_errno==0)
-    {
-        $sql = "SELECT MAX(kode_user) as kodeTerbesar FROM penggajian";
-        $res = $db->query($sql);
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
-                $data = $res->fetch_assoc();
-                $kode_user = $data["kodeTerbesar"];
-                $urutan = (int) substr($kode_user, 2, 3);
-                $urutan++;
-                
-                $huruf = "US";
-                $kode_user = $huruf.sprintf("%03s", $urutan);
-            }
-            else 
-                $kode_user = "US001";
-
-        }
-        return $kode_user;
-    }
-    else
-        return FALSE;
-}
-
-function getDataUser($id)
-{
-    $db = dbConnect();
-    if($db->connect_errno==0)
-    {
-        $sql = "SELECT * FROM user WHERE kode_user='$id'";
-        $res = $db->query($sql);
-        if($res)
-        {
-            if($res->num_rows==1)
-            {
-                $data = $res->fetch_assoc();
-                return $data;
-                
-            }
-            else
-                return FALSE;
-            $res->free();
-        }
-        else 
-            echo "Error ".(DEVELOPMENT?":".$db->error:"");
-    }
-    else
-        header("Location: pengguna.php?error=koneksi");
-}
-// END OF BLOCK USER
 // BLOCK PENGGAJIAN
 function noSlipOtomatis()
 {
@@ -328,6 +272,36 @@ function getDataLembur($kode_lembur)
         return FALSE;
 }
 
+function kodeLembur()
+{
+    $db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $sql = "SELECT MAX(kode_lembur) as kodeTerbesar FROM lembur";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $kode = $data['kodeTerbesar'];
+                $urutan = (int) substr($kode, 1, 4);
+                $urutan++;
+
+                $huruf = "L";
+                $kode = $huruf.sprintf("%04s", $urutan);
+               
+            } else 
+            {
+                $kode = "L0001";
+            }
+        }
+        return $kode;
+    }
+    else
+        return FALSE;   
+}
+
 function getList($table, $id){
 	$db=dbConnect();
 	if($db->connect_errno==0){
@@ -374,5 +348,7 @@ function getDataAssoc($table, $id, $field){
     $db->close();
     return $row;
 }
+
+// END OF LEMBUR BLOCK
 
 ?>

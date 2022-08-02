@@ -50,6 +50,32 @@ $hasil = getFKDataLembur();
                 <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#xlarge">
             Tambah
         </button>
+        <?php
+        if(isset($_GET["success"]))
+        {
+            $success = $_GET["success"];
+            if($success == 1)
+                showSuccess("Data berhasil disimpan.");
+            else if($success == 2)
+                showSuccess("Data berhasil diubah.");
+            else if($success == 3)
+                showSuccess("Data berhasil dihapus.");
+        }
+        if(isset($_GET["warning"]))
+        {
+            $warning = $_GET["warning"];
+            if($warning == "perubahan")
+                showWarning("Tidak ada perubahan.");
+        }
+        if(isset($_GET["error"]))
+        {
+            $error = $_GET["error"];
+            if($error == "input")
+                showError("Kesalahan format masukan");
+            else if($error == "proses")
+                showError("Terjadi kesalahan, silahkan melakukan proses dengan benar");
+        }
+        ?>
             <!--Extra Large Modal -->
             <div class="modal fade text-left w-100" id="xlarge" tabindex="-1"
                                                 role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
@@ -75,10 +101,11 @@ $hasil = getFKDataLembur();
                                         <form method="POST" name="frm" action="lembur.php" class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6 col-12">
+
                                                     <div class="form-group">
                                                         <label for="kode_lembur">Kode Lembur</label>
                                                         <input type="text" id="kode_lembur" class="form-control"
-                                                            placeholder="Kode Lembur" name="kode_lembur">
+                                                            placeholder="Kode Lembur" name="kode_lembur" value="<?php echo kodeLembur() ?>" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
@@ -89,7 +116,7 @@ $hasil = getFKDataLembur();
                                                             <?php
                                                                $datakode_karyawan=getList("karyawan", "kode_karyawan");
                                                                 foreach($datakode_karyawan as $data){
-                                                                echo "<option value=\"".$data["kode_karyawan"]."\">".$data["kode_karyawan"]."</option>";
+                                                                echo "<option value=\"".$data["kode_karyawan"]."\">".$data["nama"]."</option>";
                                                                  }
                                                              ?>
                                                     </select>
@@ -112,17 +139,7 @@ $hasil = getFKDataLembur();
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
-                                                        <label>Kode User</label>
-                                                        
-                                                        <select name="kode_user" class="form-control" >
-                                                            <?php
-                                                               $datakode_user=getList("user", "kode_user");
-                                                                foreach($datakode_user as $data){
-                                                                echo "<option value=\"".$data["kode_user"]."\">".$data["kode_user"]."</option>";
-                                                                 }
-                                                             ?>
-                                                    </select>
-
+                                                        <label> </label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-12">
@@ -144,7 +161,7 @@ $hasil = getFKDataLembur();
                 $tanggal = $_POST["tanggal"];
                 $keterangan = $_POST["keterangan"];
                 $kode_user = $_POST["kode_user"];
-                $sql = "INSERT INTO lembur (kode_lembur, kode_karyawan, tanggal, keterangan, kode_user) VALUES ('$kode_lembur', '$kode_karyawan', '$tanggal', '$keterangan', '$kode_user')";
+                $sql = "INSERT INTO lembur (kode_lembur, kode_karyawan, tanggal, keterangan, kode_user) VALUES ('$kode_lembur', '$kode_karyawan', '$tanggal', '$keterangan','" . $db->escape_string($_SESSION["kode_user"] )."')";
                 $result = mysqli_query($conn, $sql);
                 if($result){
                     header("Location: lembur.php?success=1");
