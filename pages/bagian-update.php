@@ -20,14 +20,14 @@ if(!isset($_SESSION["kode_user"]))
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Form Hapus Bagian</h3>
+                    <h3>Form Edit Bagian</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="bagian.php">Bagian</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Hapus Bagian</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Bagian</li>
                         </ol>
                     </nav>
                 </div>
@@ -87,8 +87,8 @@ if(!isset($_SESSION["kode_user"]))
                                                                 value="<?php echo $row["tunjangan_bagian"];?>" required>
     </div>
                                                         <div class="col-12 d-flex justify-content-end">
-                                                            <button type="submit" name="TblHapus" class="btn btn-primary me-1 mb-1" value="simpan">Hapus</button>
-                                                            
+                                                            <button type="submit" name="tblUpdate" class="btn btn-primary me-1 mb-1" value="simpan">Submit</button>
+                                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                         </div>
                                                         </div>
                                                 </form>
@@ -96,7 +96,7 @@ if(!isset($_SESSION["kode_user"]))
                 <!-- end of form update -->
 <!-- Tombol Submit -->
 <?php
-if(isset($_POST["TblHapus"])){
+if(isset($_POST["tblUpdate"])){
 	$db=dbConnect();
 	if($db->connect_errno==0){
 		// Bersihkan data
@@ -105,15 +105,17 @@ if(isset($_POST["TblHapus"])){
 		$gaji_pokok=$db->escape_string($_POST["gaji_pokok"]);
 		$tunjangan_bagian=$db->escape_string($_POST["tunjangan_bagian"]);
 		// Susun query Update
-		$sql="DELETE FROM bagian 
+		$sql="UPDATE bagian SET 
+			  kode_bagian='$kode_bagian',nama='$nama',gaji_pokok='$gaji_pokok',
+			  tunjangan_bagian='$tunjangan_bagian'
 			  WHERE kode_bagian='$kode_bagian'";
 		// Eksekusi query update
 		$res=$db->query($sql);
 		if($res){
-			if($db->affected_rows>0){ // jika ada data yang terhapus
+			{ // jika ada perubahan data
 				echo "
             <script>
-            alert('Data Bagian berhasil Di DELETE');
+            alert('Data Bagian $kode_bagian berhasil diUpdate');
              window.location.href = 'bagian.php';
             </script>";
 	
@@ -121,11 +123,7 @@ if(isset($_POST["TblHapus"])){
 			}
 		}
 		else{  
-			echo "
-            <script>
-            alert('Data Bagian $kode_bagian tidak diUpdate');
-             window.location.href = 'bagian-update.php';
-            </script>";
+			header("Location: bagian.php?none=1");
 			
 		}
 	}
