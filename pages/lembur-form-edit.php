@@ -73,8 +73,7 @@
                                     <input type="text" class="form-control" name="keterangan" value="<?php echo $data["keterangan"] ?>" autocomplete="off">
                                 </div>
                                 <div class="form-group">
-                                    <label>Kode User</label>
-                                    <input type="text" class="form-control" name="kode_user" value="<?php echo $data["kode_user"] ?>" autocomplete="off">
+                                    <label> </label>
                                 </div>
                             </div>
                         </div>
