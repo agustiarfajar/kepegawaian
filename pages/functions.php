@@ -180,6 +180,11 @@ function getDataGaji($id)
 function getListBagian() {
     $db=dbConnect();
     if($db->connect_errno==0){
+        // $res=$db->query("CREATE PROCEDURE getListBagian()
+        //                 BEGIN
+        //                     SELECT * FROM bagian ORDER BY kode_bagian;
+        //                 END");
+        // $res=$db->query("CALL getListBagian()");
         $res=$db->query("SELECT * FROM bagian ORDER BY kode_bagian");
         if($res){
             $data=$res->fetch_all(MYSQLI_ASSOC);
@@ -252,6 +257,13 @@ function getDataKaryawan($kodkar)
 // BLOCK OF LEMBUR
 function getFKDataLembur(){
     $db = dbConnect();
+    // $result=$db->query("CREATE PROCEDURE getFKDataLembur()
+    //                     BEGIN
+    //                         SELECT l.kode_lembur, k.kode_karyawan, l.tanggal, l.keterangan, u.kode_user
+    //                         FROM lembur l JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
+    //                         JOIN user u ON l.kode_user = u.kode_user;
+    //                     END");
+    // $result=$db->query("CALL getFKDataLembur()");
     $sql = "SELECT l.kode_lembur, k.kode_karyawan, 
                     l.tanggal, l.keterangan,
                     u.kode_user
