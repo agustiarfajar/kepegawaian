@@ -19,14 +19,14 @@ if(!isset($_SESSION["kode_user"]))
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Form Edit Penggajian Karyawan</h3>
+                    <h3>Form Hapus Penggajian Karyawan</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="penggajian.php">Penggajian</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                            <li class="breadcrumb-item active" aria-current="page">Hapus</li>
                         </ol>
                     </nav>
                 </div>
@@ -45,7 +45,7 @@ if(!isset($_SESSION["kode_user"]))
                     $no_slip = $_GET["no_slip"];
                     $datagaji = getDataGaji($no_slip);
                     ?>
-                    <form action="penggajian-update.php" method="post">
+                    <form action="penggajian-hapus.php" method="post">
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -54,15 +54,15 @@ if(!isset($_SESSION["kode_user"]))
                                 </div>    
                                 <div class="form-group">
                                     <label for="periode">Periode Gaji</label>
-                                    <input type="date" id="periode" class="form-control" placeholder="Periode Gaji" name="periode_gaji" value="<?php echo $datagaji["periode_gaji"] ?>">
+                                    <input type="date" id="periode" class="form-control" placeholder="Periode Gaji" name="periode_gaji" value="<?php echo ($datagaji["periode_gaji"]) ?>" readonly>
                                 </div>                                                     
                                 <div class="form-group">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" id="tanggal" class="form-control" placeholder="Tanggal" name="tanggal" value="<?php echo $datagaji["tanggal"] ?>">
+                                    <input type="date" id="tanggal" class="form-control" placeholder="Tanggal" name="tanggal" value="<?php echo $datagaji["tanggal"] ?>" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="karyawan">Karyawan</label>
-                                    <select name="kode_karyawan" id="karyawan" class="form-control" onchange="changeKaryawan()">
+                                    <select name="kode_karyawan" id="karyawan" class="form-control" onchange="changeKaryawan()" disabled>
                                         <option value="">Pilih Karyawan</option>
                                         <?php 
                                         $db = dbConnect();
@@ -110,7 +110,7 @@ if(!isset($_SESSION["kode_user"]))
                             
                         </div>
                         <div style="float:right">
-                            <button type="button" onclick="konfirmasiUbah()" name="btnSimpan" class="btn btn-primary me-1 mb-1">Simpan</button>
+                            <button type="button" onclick="konfirmasiHapus()" name="btnHapus" class="btn btn-danger me-1 mb-1">Hapus</button>
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button> 
                         </div>             
                     </form>
@@ -159,22 +159,22 @@ if(!isset($_SESSION["kode_user"]))
     }
 
     // Sweetalert
-    function konfirmasiUbah()
+    function konfirmasiHapus()
     {
         event.preventDefault();
         var form = event.target.form;
         Swal.fire({
             icon: "question",
             title: "Konfirmasi",
-            text: "Apakah anda yakin ingin mengubah data?",
+            text: "Apakah anda yakin ingin menghapus data?",
             showCancelButton: true,
-            confirmButtonText: "Ubah",
+            confirmButtonText: "Hapus",
             cancelButtonText: "Batal"
         }).then((result) => {
             if(result.value) {
                 form.submit();
             } else {
-                Swal.fire("Informasi","Data batal diubah.","error");
+                Swal.fire("Informasi","Data batal dihapus.","error");
             }
         });
     }

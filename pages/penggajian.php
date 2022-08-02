@@ -213,8 +213,7 @@ if(!isset($_SESSION["kode_user"]))
                                     <td>
                                         <a href="penggajian-cetak-slip.php?no_slip=<?php echo $row["no_slip"] ?>" target="_blank" class="btn btn-sm btn-info"><i class="bi bi-receipt"></i></a>
                                         <a href="penggajian-form-edit.php?no_slip=<?php echo $row["no_slip"] ?>" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a>
-                                        <a href="#" onclick="konfirmasiHapus()" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
-                                        <input type="hidden" id="hapus_no_slip" value="<?php echo $row["no_slip"] ?>">
+                                        <a href="penggajian-form-hapus.php?no_slip=<?php echo $row["no_slip"] ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                                     <?php

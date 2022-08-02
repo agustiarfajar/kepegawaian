@@ -5,18 +5,18 @@ include_once("functions.php");
 $db = dbConnect();
 if($db->connect_errno==0)
 {
-    if($_POST["no_slip"])
+    if($_POST["kode_user"])
     {
-        $no_slip = $_POST["no_slip"];
+        $kode_user = $_POST["kode_user"];
 
-        $sql = "DELETE FROM penggajian
-                WHERE no_slip='$no_slip'";
+        $sql = "DELETE FROM user
+                WHERE kode_user='$kode_user'";
         $res = $db->query($sql);
         if($res)
         {
             if($db->affected_rows>0)
             {
-                header("Location: penggajian.php?success=3");
+                header("Location: pengguna.php?success=3");
             }
         }
         else
@@ -24,5 +24,5 @@ if($db->connect_errno==0)
     }   
 }
 else 
-    header("Location: penggajian.php?error=koneksi");
+    header("Location: pengguna.php?error=koneksi");
 ?>
