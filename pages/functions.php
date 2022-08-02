@@ -65,6 +65,149 @@ function showWarning($msg)
     </div>
     <?php
 }
+
+
+// BLOCK OF DASHBOARD
+function countBagian()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(*) as jml_bagian FROM bagian");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+
+function countLembur()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(*) as jml_lembur FROM lembur");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+function countKaryawan()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(*) as jml_karyawan FROM karyawan");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+function countUser()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(*) as jml_user FROM user");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+
+function countKaryawanL()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(jk) as jk_l FROM karyawan WHERE jk='L'");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+function countKaryawanP()
+{
+	$db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $res = $db->query("SELECT COUNT(jk) as jk_p FROM karyawan WHERE jk='P'");
+        if($res)
+        {
+            $data = $res->fetch_assoc();
+            $res->free();
+            return $data;
+        }
+        else
+            return FALSE;   
+    }
+    else
+        return FALSE;
+}
+function countKaryawanMasuk()
+{
+    $bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    $tahun = date('Y');
+    $db = dbConnect();
+    for($i=1;$i<count($bulan);$i++)
+    {
+        if($db->connect_errno == 0)
+        {
+            $res = $db->query("SELECT COUNT(*) as jml_masuk FROM karyawan WHERE YEAR(tanggal_masuk)='$tahun'");
+            if($res)
+            {
+                $data = $res->fetch_all(MYSQLI_ASSOC);
+                foreach($data as $row)
+                {
+                    $jumlahKaryawanMasuk = $row->jml_masuk;
+                    return $jumlahKaryawanMasuk;
+                }
+                $res->free();                
+            }
+            else
+                return FALSE;   
+        }
+        else
+            return FALSE;
+    }
+}
+
+
+// END OF DASHBOARD 
 // BLOCK USER
 function kodeUserOtomatis()
 {
@@ -180,12 +323,12 @@ function getDataGaji($id)
 function getListBagian() {
     $db=dbConnect();
     if($db->connect_errno==0){
-        // $res=$db->query("CREATE PROCEDURE getListBagian()
-        //                 BEGIN
-        //                     SELECT * FROM bagian ORDER BY kode_bagian;
-        //                 END");
-        // $res=$db->query("CALL getListBagian()");
-        $res=$db->query("SELECT * FROM bagian ORDER BY kode_bagian");
+        $res=$db->query("CREATE PROCEDURE getListBagian()
+                        BEGIN
+                            SELECT * FROM bagian ORDER BY kode_bagian;
+                        END");
+        $res=$db->query("CALL getListBagian()");
+        // $res=$db->query("SELECT * FROM bagian ORDER BY kode_bagian");
         if($res){
             $data=$res->fetch_all(MYSQLI_ASSOC);
             $res->free();
@@ -257,21 +400,21 @@ function getDataKaryawan($kodkar)
 // BLOCK OF LEMBUR
 function getFKDataLembur(){
     $db = dbConnect();
-    // $result=$db->query("CREATE PROCEDURE getFKDataLembur()
-    //                     BEGIN
-    //                         SELECT l.kode_lembur, k.kode_karyawan, l.tanggal, l.keterangan, u.kode_user
-    //                         FROM lembur l JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
-    //                         JOIN user u ON l.kode_user = u.kode_user;
-    //                     END");
-    // $result=$db->query("CALL getFKDataLembur()");
-    $sql = "SELECT l.kode_lembur, k.kode_karyawan, 
-                    l.tanggal, l.keterangan,
-                    u.kode_user
-            FROM lembur l 
-			JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
-			JOIN user u ON l.kode_user = u.kode_user";  
+    $result=$db->query("CREATE PROCEDURE getFKDataLembur()
+                        BEGIN
+                            SELECT l.kode_lembur, k.kode_karyawan, l.tanggal, l.keterangan, u.kode_user
+                            FROM lembur l JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
+                            JOIN user u ON l.kode_user = u.kode_user;
+                        END");
+    $result=$db->query("CALL getFKDataLembur()");
+    // $sql = "SELECT l.kode_lembur, k.kode_karyawan, 
+    //                 l.tanggal, l.keterangan,
+    //                 u.kode_user
+    //         FROM lembur l 
+	// 		JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
+	// 		JOIN user u ON l.kode_user = u.kode_user";  
 
-    $result = $db->query($sql);
+    // $result = $db->query($sql);
     $row = $result->fetch_All();
 
     $db->close();
