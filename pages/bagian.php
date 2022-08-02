@@ -19,7 +19,7 @@ if(!isset($_SESSION["kode_user"]))
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
+                        <div class="col-12 col-12 order-md-1 order-last">
                             <h3>Bagian</h3>
                             
                         </div>
@@ -28,19 +28,17 @@ if(!isset($_SESSION["kode_user"]))
                 </div>
                 <!-- Tambah Data Bagian -->
                 
-                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#xlarge">
-                                                Tambah Data Bagian
-                                            </button>
+                <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#default">
+            Tambah Data Bagian
+        </button>
                                             <!--Extra Large Modal -->
-        <div class="modal fade text-left w-100" id="xlarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+                                            <div class="modal fade text-left w-100" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel16">Form Bagian</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
+
+                        <i class="bi bi-x-circle-fill" data-bs-dismiss="modal" style="font-size:14px;cursor:pointer"></i>
                     </div>
                     <div class="modal-body">
                     <section id="multiple-column-form">
@@ -49,9 +47,9 @@ if(!isset($_SESSION["kode_user"]))
                                 <div class="card">
                                         <div class="card-content">
                                             <div class="card-body">
-                                                <form class="form" method="post" name="frm" action="bagian-simpan.php">
+                                                <form class="form" method="post" name="frm" action="">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-12">
                                                             <div class="form-group">
                                                                 <label for="kode_bagian">Kode Bagian</label>
                                                                 <input type="text" id="kode_bagian" class="form-control" name="kode_bagian" placeholder="bg0" required>
@@ -80,20 +78,51 @@ if(!isset($_SESSION["kode_user"]))
                             </div>
                         </section>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light-secondary"
-                                data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Close</span>
-                            </button>
-
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Tombol Submit -->
-
+        <?php
+if(isset($_POST["TblSimpan"])){
+	$db=dbConnect();
+	if($db->connect_errno==0){
+		// Bersihkan data
+		$kode_bagian=$db->escape_string($_POST["kode_bagian"]);
+		$nama=$db->escape_string($_POST["nama"]);
+		$gaji_pokok=$db->escape_string($_POST["gaji_pokok"]);
+		$tunjangan_bagian=$db->escape_string($_POST["tunjangan_bagian"]);
+		// Susun query insert
+		$sql="INSERT INTO bagian(kode_bagian,nama,gaji_pokok,tunjangan_bagian)
+			  VALUES('$kode_bagian','$nama','$gaji_pokok','$tunjangan_bagian')";
+		// Eksekusi query insert
+		$res=$db->query($sql);
+		if($res){
+			if($db->affected_rows>0){ // jika ada penambahan data
+				echo "
+            <script>
+            alert('Data Bagian berhasil Ditambahkan');
+             window.location.href = 'bagian.php?sukses=1';
+            </script>";
+	
+				
+			}
+		}
+		else{  
+			
+			
+			echo "
+            <script>
+            alert('Data Bagian Gagal Ditambahkan');
+             window.location.href = 'bagian.php';
+            </script>";
+			
+		}
+	}
+	else
+		echo "Gagal koneksi".(DEVELOPMENT?" : ".$db->connect_error:"")."<br>";
+}
+?>
 <!-- end of tombol submit -->
 
 
@@ -121,33 +150,7 @@ if(!isset($_SESSION["kode_user"]))
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                <?php
-                        if(isset($_POST["TblHapus"])){
-                            $db=dbConnect();
-                            if($db->connect_errno==0){
-                                $kode_bagian=$db->escape_string($_POST["hps_kb"]);
-                                // Susun query delete
-                                $sql="DELETE FROM bagian WHERE kode_bagian='$kode_bagian'";
-                                // Eksekusi query delete
-                                $res=$db->query($sql);
-                                if($res){
-                                    if($db->affected_rows>0) // jika ada data terhapus
-                                        header("Location: bagian.php?success=3");
-                                    else // Jika sql sukses tapi tidak ada data yang dihapus
-                                        header("Location: bagian.php?error=3");
-                                }
-                                else{ // gagal query
-                                    echo "Data gagal dihapus. <br>";
-                                }
-                            }
-                            else
-                                echo "Gagal koneksi".(DEVELOPMENT?" : ".$db->connect_error:"")."<br>";
-                        }
-                        ?>                      <!-- Tombol Hapus -->
-
-<!-- end of tombol hapus -->
-                        <form action="" method="post">
+                                <tbody>                         
                         <?php 
                         $db = dbConnect();
                         if($db->connect_errno==0)
@@ -159,24 +162,27 @@ if(!isset($_SESSION["kode_user"]))
                                 $data = $res->fetch_all(MYSQLI_ASSOC);
                                 foreach($data as $row)
                                 {
-                                    ?>                                    
+                                    ?>
+                                    
                                     <tr>
-                                        <td><?php echo $row["kode_bagian"] ?><input type="text" name="hps_kb" value="<?php echo $row["kode_bagian"] ?>"></td>
-                                        <td><?php echo $row["nama"] ?></td>
-                                        <td>Rp <?php echo $row["gaji_pokok"] ?></td>
-                                        <td>Rp <?php echo $row["tunjangan_bagian"] ?></td>
-                                        <td>
-                                        <a href="#" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                                        <input type="submit" name="TblHapus" class="btn btn-danger" onclick="return confirm('yakin ingin dihapus?')" value="hapus">
-                                        </td>
-                                    </tr>
+                                    <td><?php echo $row["kode_bagian"] ?></td>
+                                    <td><?php echo $row["nama"] ?></td>
+                                    <td>Rp <?php echo $row["gaji_pokok"] ?></td>
+                                    <td>Rp <?php echo $row["tunjangan_bagian"] ?></td>
+                                    <td>
+                                    <a href="bagian-update.php?kode_bagian=<?php echo $row['kode_bagian']?>"><button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></a>
+                                    <a href="bagian-hapus.php?kode_bagian=<?php echo $row['kode_bagian']?>"><button name="TblHapus" class="btn btn-primary"><i class="bi bi-trash-fill"></i></button></a>
+                                    </td>
+                                
+                                    </td>
+                                </tr>
                                     <?php
                                 }
                             }
                         }
-                        ?>
-                        </form>               
-                                                           
+                        ?>              
+        
+                                                     
                         </tbody>
                             </table>
                         </div>
