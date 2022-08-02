@@ -272,6 +272,36 @@ function getDataLembur($kode_lembur)
         return FALSE;
 }
 
+function kodeLembur()
+{
+    $db = dbConnect();
+	if($db->connect_errno == 0)
+    {
+        $sql = "SELECT MAX(kode_lembur) as kodeTerbesar FROM lembur";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $kode = $data['kodeTerbesar'];
+                $urutan = (int) substr($kode, 1, 4);
+                $urutan++;
+
+                $huruf = "L";
+                $kode = $huruf.sprintf("%04s", $urutan);
+               
+            } else 
+            {
+                $kode = "L0001";
+            }
+        }
+        return $kode;
+    }
+    else
+        return FALSE;   
+}
+
 function getList($table, $id){
 	$db=dbConnect();
 	if($db->connect_errno==0){
@@ -319,6 +349,6 @@ function getDataAssoc($table, $id, $field){
     return $row;
 }
 
-// END OF KARYAWAN BLOCK
+// END OF LEMBUR BLOCK
 
 ?>

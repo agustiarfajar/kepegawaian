@@ -50,6 +50,32 @@ $hasil = getFKDataLembur();
                 <button type="button" class="btn btn-outline-primary block" data-bs-toggle="modal" data-bs-target="#xlarge">
             Tambah
         </button>
+        <?php
+        if(isset($_GET["success"]))
+        {
+            $success = $_GET["success"];
+            if($success == 1)
+                showSuccess("Data berhasil disimpan.");
+            else if($success == 2)
+                showSuccess("Data berhasil diubah.");
+            else if($success == 3)
+                showSuccess("Data berhasil dihapus.");
+        }
+        if(isset($_GET["warning"]))
+        {
+            $warning = $_GET["warning"];
+            if($warning == "perubahan")
+                showWarning("Tidak ada perubahan.");
+        }
+        if(isset($_GET["error"]))
+        {
+            $error = $_GET["error"];
+            if($error == "input")
+                showError("Kesalahan format masukan");
+            else if($error == "proses")
+                showError("Terjadi kesalahan, silahkan melakukan proses dengan benar");
+        }
+        ?>
             <!--Extra Large Modal -->
             <div class="modal fade text-left w-100" id="xlarge" tabindex="-1"
                                                 role="dialog" aria-labelledby="myModalLabel16" aria-hidden="true">
@@ -75,10 +101,11 @@ $hasil = getFKDataLembur();
                                         <form method="POST" name="frm" action="lembur.php" class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6 col-12">
+
                                                     <div class="form-group">
                                                         <label for="kode_lembur">Kode Lembur</label>
                                                         <input type="text" id="kode_lembur" class="form-control"
-                                                            placeholder="Kode Lembur" name="kode_lembur">
+                                                            placeholder="Kode Lembur" name="kode_lembur" value="<?php echo kodeLembur() ?>" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
