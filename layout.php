@@ -113,16 +113,16 @@ function sidebar()
                             <li class="sidebar-item">
                                 <a href="penggajian.php" class='sidebar-link'>
                                     <i class="bi bi-cash"></i>
-                                    <span>Penggajian Karyawan</span>
+                                    <span>Gaji Karyawan</span>
                                 </a>                            
                             </li>
                             <li class="sidebar-item">
                                 <a href="penggajian-form-laporan.php" class='sidebar-link'>
                                     <i class="bi bi-folder-fill"></i>
-                                    <span>Laporan Penggajian</span>
+                                    <span>Laporan Gaji Karyawan</span>
                                 </a>                            
                             </li>
-                            <li class="sidebar-title">Kelola Pengguna</li>
+                            <li class="sidebar-title">Kelola User</li>
 
                             <li class="sidebar-item">
                                 <a href="pengguna.php" class='sidebar-link'>

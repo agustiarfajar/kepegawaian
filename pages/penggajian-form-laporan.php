@@ -19,7 +19,7 @@ if(!isset($_SESSION["kode_user"]))
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Data Penggajian Karyawan</h3>
+                    <h3>Form Laporan Gaji Karyawan</h3>
                     <p class="text-subtitle text-muted">Form pencetakan laporan gaji</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
@@ -36,7 +36,7 @@ if(!isset($_SESSION["kode_user"]))
         <section class="section">
             <div class="card">          
                 <div class="card-header">
-                    <h4 class="card-title">Cetak Laporan Gaji Berdasarkan Tanggal</h4>
+                    <h4 class="card-title">Cetak Laporan Gaji</h4>
                 </div>
                 <div class="card-body">
                     <form action="penggajian-cetak-laporan.php" method="get" target="_blank">
