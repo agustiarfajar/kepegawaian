@@ -2,7 +2,7 @@
 define("DEVELOPMENT", TRUE);
 function dbConnect()
 {
-    $db = new mysqli("localhost","root","","basdat2_kepegawaian");
+    $db = new mysqli("localhost","root","","kel3-if6_if-6_kepegawaian");
     return $db;
 }
 
