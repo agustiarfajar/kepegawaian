@@ -122,7 +122,7 @@ if(!isset($_SESSION["kode_user"]))
                                                                             foreach($data as $row)
                                                                             {
                                                                                 ?>
-                                                                                <option value="<?php echo $row["kode_karyawan"] ?>" data-gp="<?php echo $row["gp"] ?>" data-tunjangan="<?php echo $row["tb"] ?>" data-lembur="<?php echo $row["jml_lembur"] ?>"><?php echo $row["nama"] ?> - <?php echo $row["bagian"] ?></option>
+                                                                                <option value="<?php echo $row["kode_karyawan"] ?>" data-gp="<?php echo $row["gp"] ?>" data-tunjangan="<?php echo $row["tb"] ?>" data-lembur="<?php echo $row["jml_lembur"] ?>">[<?php echo $row["kode_karyawan"] ?>] <?php echo $row["nama"] ?> - <?php echo $row["bagian"] ?></option>
                                                                                 <?php
                                                                             }
                                                                             $res->free();
