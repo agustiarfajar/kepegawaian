@@ -65,7 +65,7 @@ if(!isset($_SESSION["kode_user"]))
                     else if($error == "input")
                         showError("Terjadi kesalahan masukan:<br>".$_SESSION["salahinputuser"]);
                     else if($error == "foreignkey")
-                        showError("Terjadi kesalahan. Tidak bisa menghapus data user yang sedang login.");
+                        showError("Terjadi kesalahan: ".$_SESSION["err_fk"]);
                 }
             ?>
         </p>
