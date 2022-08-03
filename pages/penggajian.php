@@ -211,7 +211,7 @@ if(!isset($_SESSION["kode_user"]))
                                     <td><?php echo $row["karyawan"] ?></td>
                                     <td><?php echo number_format($row["total_gaji"],0,',','.') ?></td>
                                     <td>
-                                        <a href="penggajian-cetak-slip.php?no_slip=<?php echo $row["no_slip"] ?>" target="_blank" class="btn btn-sm btn-info"><i class="bi bi-receipt"></i></a>
+                                        <a href="penggajian-cetak-slip.php?no_slip=<?php echo $row["no_slip"] ?>" target="_blank" class="btn btn-sm btn-warning"><i class="bi bi-printer"></i></a>
                                         <a href="penggajian-form-edit.php?no_slip=<?php echo $row["no_slip"] ?>" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square"></i></a>
                                         <a href="penggajian-form-hapus.php?no_slip=<?php echo $row["no_slip"] ?>" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
                                     </td>

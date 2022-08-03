@@ -86,8 +86,8 @@ if(!isset($_SESSION["kode_user"]))
                                                                 <input type="number" id="tunjangan_bagian" class="form-control" placeholder="Rp" name="tunjangan_bagian" 
                                                                 value="<?php echo $row["tunjangan_bagian"];?>" required>
     </div>
-                                                        <div class="col-12 d-flex justify-content-end">
-                                                            <button type="submit" name="TblHapus" class="btn btn-primary me-1 mb-1" value="simpan">Hapus</button>
+                                                        <div class="col-12">
+                                                            <button type="submit" name="TblHapus" class="btn btn-danger me-1 mb-1" value="simpan" onclick="return confirm('Apakah anda yakin ingin menghapus data?')">Hapus</button>
                                                             
                                                         </div>
                                                         </div>

@@ -1,0 +1,29 @@
+{
+    "bulan": [
+        {"kode_bulan":"01","nama":"Januari"},
+        {"kode_bulan":"02","nama":"Februari"},
+        {"kode_bulan":"03","nama":"Maret"},
+        {"kode_bulan":"04","nama":"April"},
+        {"kode_bulan":"05","nama":"Mei"},
+        {"kode_bulan":"06","nama":"Juni"},
+        {"kode_bulan":"07","nama":"Juli"},
+        {"kode_bulan":"08","nama":"Agustus"},
+        {"kode_bulan":"09","nama":"September"},
+        {"kode_bulan":"10","nama":"Oktober"},
+        {"kode_bulan":"11","nama":"November"},
+        {"kode_bulan":"12","nama":"Desember"}
+    ],
+    "tahun": [
+        {"data":"2020"},
+        {"data":"2021"},
+        {"data":"2022"},
+        {"data":"2023"},
+        {"data":"2024"},
+        {"data":"2025"},
+        {"data":"2026"},
+        {"data":"2027"},
+        {"data":"2028"},
+        {"data":"2029"},
+        {"data":"2030"}
+    ]
+}

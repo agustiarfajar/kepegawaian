@@ -20,6 +20,8 @@ function style_section()
         <title>Kelompok 3 - Penggajian</title>
         <!-- JQUERY -->
         <script src="../assets/vendors/jquery/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../assets/css/bootstrap.css">
@@ -47,7 +49,7 @@ function sidebar()
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <a href="index.html"><img src="../assets/images/logo/logo-kel3.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -115,7 +117,7 @@ function sidebar()
                                 </a>                            
                             </li>
                             <li class="sidebar-item">
-                                <a href="laporan-penggajian.php" class='sidebar-link'>
+                                <a href="penggajian-form-laporan.php" class='sidebar-link'>
                                     <i class="bi bi-folder-fill"></i>
                                     <span>Laporan Penggajian</span>
                                 </a>                            

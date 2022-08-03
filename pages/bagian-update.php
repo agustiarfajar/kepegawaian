@@ -27,7 +27,7 @@ if(!isset($_SESSION["kode_user"]))
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="bagian.php">Bagian</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Edit Bagian</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
                 </div>
@@ -74,20 +74,20 @@ if(!isset($_SESSION["kode_user"]))
                                                             <div class="form-group">
                                                                 <label for="nama">Nama </label>
                                                                 <input type="text" id="nama" class="form-control" placeholder="John Doe" name="nama" 
-                                                                value="<?php echo $row["nama"];?>" required>
+                                                                value="<?php echo $row["nama"];?>">
                                                             </div>                                                     
                                                             <div class="form-group">
                                                                 <label for="gaji_pokok">Gaji Pokok</label>
                                                                 <input type="number" id="gaji_pokok" class="form-control" placeholder="Rp" name="gaji_pokok" 
-                                                                value="<?php echo $row["gaji_pokok"];?>" required>
+                                                                value="<?php echo $row["gaji_pokok"];?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="tunjangan_bagian">Tunjangan</label>
                                                                 <input type="number" id="tunjangan_bagian" class="form-control" placeholder="Rp" name="tunjangan_bagian" 
-                                                                value="<?php echo $row["tunjangan_bagian"];?>" required>
+                                                                value="<?php echo $row["tunjangan_bagian"];?>">
     </div>
-                                                        <div class="col-12 d-flex justify-content-end">
-                                                            <button type="submit" name="tblUpdate" class="btn btn-primary me-1 mb-1" value="simpan">Submit</button>
+                                                        <div class="col-12">
+                                                            <button type="submit" onclick="return confirm('Apakah anda yakin ingin mengubah data?')" name="tblUpdate" class="btn btn-primary me-1 mb-1" value="simpan">Update</button>
                                                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                                         </div>
                                                         </div>
@@ -99,33 +99,75 @@ if(!isset($_SESSION["kode_user"]))
 if(isset($_POST["tblUpdate"])){
 	$db=dbConnect();
 	if($db->connect_errno==0){
-		// Bersihkan data
-		$kode_bagian=$db->escape_string($_POST["kode_bagian"]);
-		$nama=$db->escape_string($_POST["nama"]);
-		$gaji_pokok=$db->escape_string($_POST["gaji_pokok"]);
-		$tunjangan_bagian=$db->escape_string($_POST["tunjangan_bagian"]);
-		// Susun query Update
-		$sql="UPDATE bagian SET 
-			  kode_bagian='$kode_bagian',nama='$nama',gaji_pokok='$gaji_pokok',
-			  tunjangan_bagian='$tunjangan_bagian'
-			  WHERE kode_bagian='$kode_bagian'";
-		// Eksekusi query update
-		$res=$db->query($sql);
-		if($res){
-			{ // jika ada perubahan data
-				echo "
-            <script>
-            alert('Data Bagian $kode_bagian berhasil diUpdate');
-             window.location.href = 'bagian.php';
-            </script>";
-	
-				
-			}
-		}
-		else{  
-			header("Location: bagian.php?none=1");
-			
-		}
+        $pesansalah = "";
+        $v_kode_bagian = trim($_POST["kode_bagian"]);
+        $v_nama = trim($_POST["nama"]);
+        $v_gaji_pokok = trim($_POST["gaji_pokok"]);
+        $v_tunjangan_bagian = trim($_POST["tunjangan_bagian"]);
+        
+        if(strlen($v_kode_bagian) == "")
+        {
+            $pesansalah .= "Kode Bagian tidak boleh kosong<br>";
+        }
+        if(strlen($v_nama) == "")
+        {
+            $pesansalah .= "Nama tidak boleh kosong<br>";
+        }  
+        if(strlen($v_gaji_pokok) == "")
+        {
+            $pesansalah .= "Gaji Pokok tidak boleh kosong<br>";
+        }   
+        if(strlen($v_tunjangan_bagian) == "")
+        {
+            $pesansalah .= "Tunjangan tidak boleh kosong<br>";
+        }     
+        if(!is_numeric($v_gaji_pokok))
+        {
+            $pesansalah .= "Gaji Pokok harus berupa angka<br>";
+        }
+        if(!is_numeric($v_tunjangan_bagian))
+        {
+            $pesansalah .= "Tunjangan harus berupa angka<br>";
+        }
+
+        if($pesansalah == "")
+        {
+            // Bersihkan data
+            $kode_bagian=$db->escape_string($_POST["kode_bagian"]);
+            $nama=$db->escape_string($_POST["nama"]);
+            $gaji_pokok=$db->escape_string($_POST["gaji_pokok"]);
+            $tunjangan_bagian=$db->escape_string($_POST["tunjangan_bagian"]);
+            // Susun query Update
+            $sql="UPDATE bagian SET 
+                kode_bagian='$kode_bagian',nama='$nama',gaji_pokok='$gaji_pokok',
+                tunjangan_bagian='$tunjangan_bagian'
+                WHERE kode_bagian='$kode_bagian'";
+            // Eksekusi query update
+            $res=$db->query($sql);
+            if($res){
+                if($db->affected_rows > 0){ // jika ada perubahan data
+                    echo "
+                        <script>
+                            window.location.href = 'bagian.php?success=2';
+                        </script>";       
+                }
+                else 
+                {
+                    echo "
+                    <script>
+                        window.location.href = 'bagian.php?warning=perubahan';
+                    </script>";
+                }               
+            }
+            else 
+                echo "Error ".(DEVELOPMENT?" : ".$db->error:"")."<br>";   
+        } else {
+            $_SESSION["salahinputbagian"] = $pesansalah;
+            echo "
+                <script>
+                    window.location.href = 'bagian.php?error=input';
+                </script>";
+        }	
 	}
 	else
 		echo "Gagal koneksi".(DEVELOPMENT?" : ".$db->connect_error:"")."<br>";

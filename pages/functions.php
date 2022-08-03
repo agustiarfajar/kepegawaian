@@ -303,7 +303,36 @@ function getDataGaji($id)
         return FALSE;
 }
 // END OF PENGGAJIAN BLOCK
+// BLOCK OF BAGIAN
+function kodeBagianOtomatis()
+{
+    $db = dbConnect();
+    if($db->connect_errno==0)
+    {
+        $sql = "SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian";
+        $res = $db->query($sql);
+        if($res)
+        {
+            if($res->num_rows>0)
+            {
+                $data = $res->fetch_assoc();
+                $no_slip = $data["kodeTerbesar"];
+                $urutan = (int) substr($no_slip, 1, 4);
+                $urutan++;
+                
+                $huruf = "B";
+                $no_slip = $huruf.sprintf("%04s", $urutan);
+            }
+            else 
+                $no_slip = "B0001";
 
+        }
+        return $no_slip;
+    }
+    else
+        return FALSE;
+}
+// END OF BLOCK BAGIAN
 // BLOCK OF KARYAWAN
 function getListBagian() {
     $db=dbConnect();

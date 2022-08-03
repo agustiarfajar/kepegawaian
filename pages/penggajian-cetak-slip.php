@@ -1,5 +1,6 @@
 <?php 
 include_once("functions.php");
+include_once("../layout.php");
 session_id("basdat2");
 session_start();
 if(!isset($_SESSION["kode_user"]))
@@ -7,15 +8,16 @@ if(!isset($_SESSION["kode_user"]))
     header("Location: ../index.php?error=akses");
 }
 ?>
+<?php style_section() ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slip Gaji <?php echo $_GET["no_slip"] ?></title>
+    <title></title>
 </head>
 <body style="width:80%;margin:auto">
-<button onclick="window.print()">Cetak</button>
+<!-- <button onclick="window.print()">Cetak</button> -->
 <?php
 if(isset($_GET["no_slip"]))
 {
@@ -36,10 +38,17 @@ if(isset($_GET["no_slip"]))
             {
                 $data = $res->fetch_assoc();
                 ?>
-                <h2 align="center" style="border-bottom:2px solid black">SLIP GAJI KARYAWAN</h2>
-                <h3>
+                <div class="divider">
+                    <div class="divider-text">
+                        <h4>Rincian Slip Gaji Karyawan</h4>
+                    </div>
+                    <p>
+                        <?php echo "Nomor Slip: ".$no_slip ?>
+                    </p>
+                </div>
+                <h5>
                     Data Karyawan
-                </h3>
+                </h5>
                 <table border="0" width="100%">              
                     <tr>
                         <td width="15%">Tanggal</td>
@@ -62,9 +71,9 @@ if(isset($_GET["no_slip"]))
                         <td><?php echo $data["bagian"] ?></td>
                     </tr>
                 </table>
-                <h3 align="right">
+                <h5 align="right">
                     Data Gaji
-                </h3>
+                </h5>
                 <table border="0" width="100%" style="border-collapse:collapse">              
                     <tr style="text-align:center">
                         <td style="text-align:right">Gaji Pokok (Rp) +</td>

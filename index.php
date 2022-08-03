@@ -19,9 +19,9 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="#"><img src="assets/images/logo/logo.png" alt="Logo"></a>
+                        <a href="#"><img src="assets/images/logo/logo-kel3.png" alt="Logo"></a>
                     </div>
-                    <h1 class="auth-title">Log in SIMPEG</h1>
+                    <h1 class="auth-title">Penggajian</h1>
                     <p class="auth-subtitle mb-5">Silahkan login terlebih dahulu.</p>
                     <?php 
                     include_once("pages/functions.php");
