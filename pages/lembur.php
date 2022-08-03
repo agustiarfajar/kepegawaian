@@ -116,7 +116,7 @@ $hasil = getFKDataLembur();
                                                             <?php
                                                                $datakode_karyawan=getList("karyawan", "kode_karyawan");
                                                                 foreach($datakode_karyawan as $data){
-                                                                echo "<option value=\"".$data["kode_karyawan"]."\">".$data["nama"]."</option>";
+                                                                echo "<option value=\"".$data["kode_karyawan"]."\">[".$data["kode_karyawan"]."] ".$data["nama"]."</option>";
                                                                  }
                                                              ?>
                                                     </select>

@@ -72,7 +72,7 @@ if(!isset($_SESSION["kode_user"]))
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel16">Form Tambah Pengguna</h4>
+                        <h4 class="modal-title" id="myModalLabel16">Form Tambah Bagian</h4>
                         <i class="bi bi-x-circle-fill" data-bs-dismiss="modal" style="font-size:14px;cursor:pointer"></i>      
                     </div>
                     <div class="modal-body">
@@ -89,7 +89,7 @@ if(!isset($_SESSION["kode_user"]))
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="kode_bagian">Kode Bagian</label>
-                                                            <input type="text" id="kode_bagian" class="form-control" name="kode_bagian" value ="<?php echo kodeBagianOtomatis() ?>" placeholder="Masukan Kode Bagian" readonly required>
+                                                            <input type="text" id="kode_bagian" class="form-control" name="kode_bagian" value ="<?php echo kodeBagian() ?>" placeholder="Masukan Kode Bagian" readonly required>
                                                         </div>    
                                                         <div class="form-group">
                                                             <label for="nama">Nama </label>
