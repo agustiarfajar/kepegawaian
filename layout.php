@@ -115,7 +115,7 @@ function sidebar()
                                 </a>                            
                             </li>
                             <li class="sidebar-item">
-                                <a href="#" class='sidebar-link'>
+                                <a href="laporan-penggajian.php" class='sidebar-link'>
                                     <i class="bi bi-folder-fill"></i>
                                     <span>Laporan Penggajian</span>
                                 </a>                            
@@ -123,7 +123,7 @@ function sidebar()
                             <li class="sidebar-title">Kelola Pengguna</li>
 
                             <li class="sidebar-item">
-                                <a href="#" class='sidebar-link'>
+                                <a href="pengguna.php" class='sidebar-link'>
                                     <i class="bi bi-people-fill"></i>
                                     <span>Pengguna</span>
                                 </a>                            
