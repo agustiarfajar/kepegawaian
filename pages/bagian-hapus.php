@@ -113,8 +113,7 @@ if(isset($_POST["TblHapus"])){
 			if($db->affected_rows>0){ // jika ada data yang terhapus
 				echo "
             <script>
-            alert('Data Bagian berhasil Di DELETE');
-             window.location.href = 'bagian.php';
+             window.location.href = 'bagian.php?success=3';
             </script>";
 	
 				

@@ -164,9 +164,9 @@ $hasil = getFKDataLembur();
                 $sql = "INSERT INTO lembur (kode_lembur, kode_karyawan, tanggal, keterangan, kode_user) VALUES ('$kode_lembur', '$kode_karyawan', '$tanggal', '$keterangan','" . $db->escape_string($_SESSION["kode_user"] )."')";
                 $result = mysqli_query($conn, $sql);
                 if($result){
-                    header("Location: lembur.php?success=1");
+                    echo "<script>window.location.href = 'lembur.php?success=1';</script>";
                 }else{
-                    header("Location: lembur.php?warning=penginputan");
+                    echo "<script>window.location.href = 'lembur.php?error=input';</script>";
                 }
             }
         ?>

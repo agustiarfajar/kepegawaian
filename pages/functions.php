@@ -245,10 +245,9 @@ function kodeUserOtomatis()
     $db = dbConnect();
     if($db->connect_errno==0)
     {
-        $res = $db->query("CREATE PROCEDURE kodeUserOtomatis() BEGIN
-                            SELECT MAX(kode_user) as kodeTerbesar FROM penggajian;
-                            END");
-        $res = $db->query("CALL kodeUserOtomatis()");
+        // $res = $db->query("SELECT MAX(kode_user) as kodeTerbesar FROM user");
+        $res = $db->query("CREATE PROCEDURE kodeUser() BEGIN SELECT MAX(kode_user) as kodeTerbesar FROM user; END");
+        $res = $db->query("CALL kodeUser()");
         if($res)
         {
             if($res->num_rows>0)
