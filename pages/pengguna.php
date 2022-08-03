@@ -64,8 +64,8 @@ if(!isset($_SESSION["kode_user"]))
                         showError("Terjadi kesalahan proses, silahkan coba lagi.");
                     else if($error == "input")
                         showError("Terjadi kesalahan masukan:<br>".$_SESSION["salahinputuser"]);
-                    else if($error == "foreignkey")
-                        showError("Terjadi kesalahan: ".$_SESSION["err_fk"]);
+                    else if($error == "fk")
+                        showError("Terjadi kesalahan: ".$_SESSION["fk"]);
                 }
             ?>
         </p>
