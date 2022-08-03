@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2022 at 06:33 AM
+-- Generation Time: Aug 03, 2022 at 09:53 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -25,74 +25,72 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countBagian` ()   BEGIN
-                            SELECT COUNT(*) as jml_bagian FROM bagian;
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countBagian` ()   
+BEGIN
+  SELECT COUNT(*) as jml_bagian FROM bagian;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countKaryawan` ()   BEGIN
-                            SELECT COUNT(*) as jml_karyawan FROM karyawan;
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countKaryawan` ()   
+BEGIN
+  SELECT COUNT(*) as jml_karyawan FROM karyawan;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countL` ()   BEGIN SELECT COUNT(jk) as jk_l FROM karyawan WHERE jk='L'; END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countL` ()   
+BEGIN 
+SELECT COUNT(jk) as jk_l FROM karyawan WHERE jk='L'; 
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countLembur` ()   BEGIN 
-                            SELECT COUNT(*) as jml_lembur FROM lembur;
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countLembur` ()   
+BEGIN 
+  SELECT COUNT(*) as jml_lembur FROM lembur;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countP` ()   BEGIN SELECT COUNT(jk) as jk_p FROM karyawan WHERE jk='P'; END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countP` ()   
+BEGIN 
+  SELECT COUNT(jk) as jk_p FROM karyawan WHERE jk='P'; 
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `countUser` ()   BEGIN
-                            SELECT COUNT(*) as jml_user FROM user;
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countUser` ()   
+BEGIN
+  SELECT COUNT(*) as jml_user FROM user;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataBagian` ()   BEGIN
-                                        SELECT * FROM bagian WHERE kode_bagian='B0002'; END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getFKDataLembur` ()   
+BEGIN
+  SELECT l.kode_lembur, k.kode_karyawan, l.tanggal, l.keterangan, u.kode_user
+  FROM lembur l JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
+  JOIN user u ON l.kode_user = u.kode_user;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataGaji` ()   BEGIN
-                            SELECT * FROM penggajian WHERE no_slip='INV/0002';
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getListBagian` ()   
+BEGIN
+  SELECT * FROM bagian ORDER BY kode_bagian;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataKaryawan` ()   BEGIN
-                        SELECT * FROM karyawan WHERE kode_karyawan = 'K0001';
-                        END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeBagian` ()   
+BEGIN
+  SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataLembur` ()   BEGIN
-                        SELECT * FROM lembur WHERE kode_lembur = 'L0002';
-                        END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeKaryawan` ()   
+BEGIN
+  SELECT MAX(kode_karyawan) as kodeTerbesar FROM karyawan;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataUser` ()   BEGIN
-                            SELECT * FROM user WHERE kode_user='US002';
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeLembur` ()   
+BEGIN
+  SELECT MAX(kode_lembur) as kodeTerbesar FROM lembur;
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getFKDataLembur` ()   BEGIN
-                            SELECT l.kode_lembur, k.kode_karyawan, l.tanggal, l.keterangan, u.kode_user
-                            FROM lembur l JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
-                            JOIN user u ON l.kode_user = u.kode_user;
-                        END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeUser` ()   
+BEGIN 
+  SELECT MAX(kode_user) as kodeTerbesar FROM user; 
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getListBagian` ()   BEGIN
-                            SELECT * FROM bagian ORDER BY kode_bagian;
-                        END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeBagian` ()   BEGIN
-                            SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian;
-                            END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeKaryawan` ()   BEGIN
-                        SELECT MAX(kode_karyawan) as kodeTerbesar FROM karyawan;
-                        END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeLembur` ()   BEGIN
-                        SELECT MAX(kode_lembur) as kodeTerbesar FROM lembur;
-                        END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `kodeUserOtomatis` ()   BEGIN
-                            SELECT MAX(kode_user) as kodeTerbesar FROM penggajian;
-                            END$$
-
-CREATE DEFINER=`root`@`localhost` PROCEDURE `noSlipOtomatis` ()   BEGIN
-                            SELECT MAX(no_slip) as kodeTerbesar FROM penggajian;
-                            END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `noSlipOtomatis` ()   
+BEGIN
+  SELECT MAX(no_slip) as kodeTerbesar FROM penggajian;
+END$$
 
 DELIMITER ;
 
@@ -223,10 +221,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`kode_user`, `nama`, `no_telp`, `username`, `pass`, `level`) VALUES
 ('US001', 'Ujang', '087793919231', 'ujang', '*A2A002F8BE91B2C1AC4F3D1F108F6D7D5ED5A918', '2'),
-('US002', 'Justin', '089612345678', 'justin', '*418F5110126E965257925334DE2CECD97AE332B5', '1'),
-('US003', 'Ucup', '081239475836', 'ucup', '*E2E7F720630F81EED11C7D8332BBD768B611461D', '2'),
-('US004', 'Selena', '081253948562', 'selena', '*52C630F4A7AC817A0AFEA6A92CD7BBC7BF96FBAE', '1'),
-('US005', 'Rina', '081253947182', 'rina', '*8FE30AC1383EB6D5B30DC3DFB2F31CA4F191B51F', '2');
+('US002', 'Justin', '089612345678', 'justin', '*418F5110126E965257925334DE2CECD97AE332B5', '1');
 
 --
 -- Indexes for dumped tables

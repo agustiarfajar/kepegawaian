@@ -159,7 +159,10 @@ function countKaryawanL()
 	$db = dbConnect();
 	if($db->connect_errno == 0)
     {
-        $res = $db->query("CREATE PROCEDURE countL() BEGIN SELECT COUNT(jk) as jk_l FROM karyawan WHERE jk='L'; END");
+        $res = $db->query("CREATE PROCEDURE countL() 
+                        BEGIN 
+                        SELECT COUNT(jk) as jk_l FROM karyawan WHERE jk='L';
+                        END");
         $res = $db->query("CALL countL()");
         if($res)
         {
@@ -178,7 +181,10 @@ function countKaryawanP()
 	$db = dbConnect();
 	if($db->connect_errno == 0)
     {
-        $res = $db->query("CREATE PROCEDURE countP() BEGIN SELECT COUNT(jk) as jk_p FROM karyawan WHERE jk='P'; END");
+        $res = $db->query("CREATE PROCEDURE countP()
+                        BEGIN 
+                        SELECT COUNT(jk) as jk_p FROM karyawan WHERE jk='P'; 
+                        END");
         $res = $db->query("CALL countP()");
         if($res)
         {
@@ -208,19 +214,16 @@ function countKaryawanMasuk($bulan, $tahun)
 
 // END OF DASHBOARD
 // BLOCK OF BAGIAN
-function kodeBagian()
-{
+function kodeBagian() {
     $db = dbConnect();
-    if($db->connect_errno==0)
-    {
-        // $sql = "SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian";
-        // $res = $db->query($sql);
-        $res = $db->query("CREATE PROCEDURE kodeBagian() BEGIN SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian; END");
+    if($db->connect_errno==0) {
+        $res = $db->query("CREATE PROCEDURE kodeBagian() 
+                        BEGIN 
+                        SELECT MAX(kode_bagian) as kodeTerbesar FROM bagian; 
+                        END");
         $res = $db->query("CALL kodeBagian()");
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
+        if($res) {
+            if($res->num_rows>0) {
                 $data = $res->fetch_assoc();
                 $kode_bagian = $data["kodeTerbesar"];
                 $urutan = (int) substr($kode_bagian, 1, 4);
@@ -228,30 +231,24 @@ function kodeBagian()
                 
                 $huruf = "B";
                 $kode_bagian = $huruf.sprintf("%04s", $urutan);
-            }
-            else 
+            } else 
                 $kode_bagian = "B0001";
-
-        }
-        return $kode_bagian;
-    }
-    else
+        } return $kode_bagian;
+    } else
         return FALSE;
 }
 // END OF BAGIAN
 // BLOCK USER
-function kodeUserOtomatis()
-{
+function kodeUserOtomatis() {
     $db = dbConnect();
-    if($db->connect_errno==0)
-    {
-        // $res = $db->query("SELECT MAX(kode_user) as kodeTerbesar FROM user");
-        $res = $db->query("CREATE PROCEDURE kodeUser() BEGIN SELECT MAX(kode_user) as kodeTerbesar FROM user; END");
+    if($db->connect_errno==0) {
+        $res = $db->query("CREATE PROCEDURE kodeUser() 
+                        BEGIN 
+                        SELECT MAX(kode_user) as kodeTerbesar FROM user; 
+                        END");
         $res = $db->query("CALL kodeUser()");
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
+        if($res) {
+            if($res->num_rows>0) {
                 $data = $res->fetch_assoc();
                 $kode_user = $data["kodeTerbesar"];
                 $urutan = (int) substr($kode_user, 2, 3);
@@ -259,14 +256,11 @@ function kodeUserOtomatis()
                 
                 $huruf = "US";
                 $kode_user = $huruf.sprintf("%03s", $urutan);
-            }
-            else 
+            } else 
                 $kode_user = "US001";
 
-        }
-        return $kode_user;
-    }
-    else
+        } return $kode_user;
+    } else
         return FALSE;
 }
 
@@ -297,19 +291,15 @@ function getDataUser($id)
 }
 // END OF BLOCK USER
 // BLOCK PENGGAJIAN
-function noSlipOtomatis()
-{
+function noSlipOtomatis() {
     $db = dbConnect();
-    if($db->connect_errno==0)
-    {
+    if($db->connect_errno==0) {
         $res = $db->query("CREATE PROCEDURE noSlipOtomatis() BEGIN
                             SELECT MAX(no_slip) as kodeTerbesar FROM penggajian;
                             END");
         $res = $db->query("CALL noSlipOtomatis()");
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
+        if($res) {
+            if($res->num_rows>0) {
                 $data = $res->fetch_assoc();
                 $no_slip = $data["kodeTerbesar"];
                 $urutan = (int) substr($no_slip, 4, 4);
@@ -317,14 +307,11 @@ function noSlipOtomatis()
                 
                 $huruf = "INV/";
                 $no_slip = $huruf.sprintf("%04s", $urutan);
-            }
-            else 
+            } else 
                 $no_slip = "INV/0001";
 
-        }
-        return $no_slip;
-    }
-    else
+        } return $no_slip;
+    } else
         return FALSE;
 }
 
@@ -362,7 +349,6 @@ function getListBagian() {
                             SELECT * FROM bagian ORDER BY kode_bagian;
                         END");
         $res=$db->query("CALL getListBagian()");
-        // $res=$db->query("SELECT * FROM bagian ORDER BY kode_bagian");
         if($res){
             $data=$res->fetch_all(MYSQLI_ASSOC);
             $res->free();
@@ -375,20 +361,16 @@ function getListBagian() {
         return FALSE;
 }
 
-function kodeKaryawan()
-{
+function kodeKaryawan() {
     $db = dbConnect();
-	if($db->connect_errno == 0)
-    {
+	if($db->connect_errno == 0) {
         $res=$db->query("CREATE PROCEDURE kodeKaryawan()
                         BEGIN
                         SELECT MAX(kode_karyawan) as kodeTerbesar FROM karyawan;
                         END");
         $res=$db->query("CALL kodeKaryawan()");
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
+        if($res) {
+            if($res->num_rows>0) {
                 $data = $res->fetch_assoc();
                 $kode = $data['kodeTerbesar'];
                 $urutan = (int) substr($kode, 1, 4);
@@ -397,14 +379,11 @@ function kodeKaryawan()
                 $huruf = "K";
                 $kode = $huruf.sprintf("%04s", $urutan);
                
-            } else 
-            {
+            } else {
                 $kode = "K0001";
             }
-        }
-        return $kode;
-    }
-    else
+        } return $kode;
+    } else
         return FALSE;   
 }
 
@@ -444,60 +423,12 @@ function getFKDataLembur(){
                             JOIN user u ON l.kode_user = u.kode_user;
                         END");
     $result=$db->query("CALL getFKDataLembur()");
-    // $sql = "SELECT l.kode_lembur, k.kode_karyawan, 
-    //                 l.tanggal, l.keterangan,
-    //                 u.kode_user
-    //         FROM lembur l 
-	// 		JOIN karyawan k ON l.kode_karyawan = k.kode_karyawan
-	// 		JOIN user u ON l.kode_user = u.kode_user";  
-
-    // $result = $db->query($sql);
     $row = $result->fetch_All();
 
     $db->close();
     return $row;
 }
-
-function getListKaryawan(){
-	$db=dbConnect();
-	if($db->connect_errno==0){
-		$res=$db->query("CREATE PROCEDURE getListKaryawan()
-                        BEGIN
-                        SELECT * FROM karyawan ORDER BY kode_karyawan;
-                        END");
-        $res=$db->query("CALL getListKaryawan()");
-		if($res){
-			$data=$res->fetch_all(MYSQLI_ASSOC);
-			$res->free();
-			return $data;
-		}
-		else
-			return FALSE; 
-	}
-	else
-		return FALSE;
-}
 // END OF KARYAWAN BLOCK
-function getListUser(){
-	$db=dbConnect();
-	if($db->connect_errno==0){
-		$res=$db->query("CREATE PROCEDURE getListUser()
-                        BEGIN
-                        SELECT * FROM user ORDER BY kode_user;
-                        END");
-        $res=$db->query("CALL getListUser()");
-		if($res){
-			$data=$res->fetch_all(MYSQLI_ASSOC);
-			$res->free();
-			return $data;
-		}
-		else
-			return FALSE; 
-	}
-	else
-		return FALSE;
-}
-
 function getDataLembur($kode_lembur)
 {
     $db = dbConnect();
@@ -523,20 +454,16 @@ function getDataLembur($kode_lembur)
         return FALSE;
 }
 
-function kodeLembur()
-{
+function kodeLembur() {
     $db = dbConnect();
-	if($db->connect_errno == 0)
-    {
+	if($db->connect_errno == 0) {
         $res=$db->query("CREATE PROCEDURE kodeLembur()
                         BEGIN
                         SELECT MAX(kode_lembur) as kodeTerbesar FROM lembur;
                         END");
         $res=$db->query("CALL kodeLembur()");
-        if($res)
-        {
-            if($res->num_rows>0)
-            {
+        if($res) {
+            if($res->num_rows>0) {
                 $data = $res->fetch_assoc();
                 $kode = $data['kodeTerbesar'];
                 $urutan = (int) substr($kode, 1, 4);
@@ -545,14 +472,11 @@ function kodeLembur()
                 $huruf = "L";
                 $kode = $huruf.sprintf("%04s", $urutan);
                
-            } else 
-            {
+            } else {
                 $kode = "L0001";
             }
-        }
-        return $kode;
-    }
-    else
+        } return $kode;
+    } else
         return FALSE;   
 }
 
