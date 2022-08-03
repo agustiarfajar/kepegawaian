@@ -20,7 +20,8 @@ if($db->connect_errno==0)
             }
         }
         else
-            echo "Error ".(DEVELOPMENT?":".$db->error:"");
+            // echo "Error ".(DEVELOPMENT?":".$db->error:"");
+            header("Location: pengguna.php?error=foreignkey");
     }   
 }
 else 

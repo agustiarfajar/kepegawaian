@@ -20,7 +20,7 @@ if($db->connect_errno==0)
             }
         }
         else
-            echo "Error ".(DEVELOPMENT?":".$db->error:"");
+            echo "Error ".(DEVELOPMENT?":".$db->error:"");            
     }   
 }
 else 

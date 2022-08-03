@@ -64,6 +64,8 @@ if(!isset($_SESSION["kode_user"]))
                         showError("Terjadi kesalahan proses, silahkan coba lagi.");
                     else if($error == "input")
                         showError("Terjadi kesalahan masukan:<br>".$_SESSION["salahinputuser"]);
+                    else if($error == "foreignkey")
+                        showError("Terjadi kesalahan. Tidak bisa menghapus data user yang sedang login.");
                 }
             ?>
         </p>
@@ -90,7 +92,7 @@ if(!isset($_SESSION["kode_user"]))
                                                             <div class="form-group has-icon-left">
                                                                 <label for="kode_user">Kode User</label>
                                                                 <div class="position-relative">
-                                                                    <input type="text" name="kode_user" maxlength="8" value="<?php echo kodeUserOtomatis() ?>" class="form-control" placeholder="Masukan Kode User" id="kode_user" readonly>
+                                                                    <input type="text" name="kode_user" value="<?php echo kodeUserOtomatis() ?>" class="form-control" placeholder="Masukan Kode User" id="kode_user" readonly>
                                                                     <div class="form-control-icon">
                                                                         <i class="bi bi-key"></i>
                                                                     </div>
